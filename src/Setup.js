@@ -79,12 +79,12 @@ export default class Setup extends React.Component {
         <th scope="row">{this.state.browsers[row]}</th>
         {[0, 1, 2].map(col => (
           <td>
-            <Input type="number" onChange={this.handleMatrixChange(row, col)} value={this.state.matrix[row][col]} />
+            <Input type="number" min="0" step="0.01" onChange={this.handleMatrixChange(row, col)} value={this.state.matrix[row][col]} />
           </td>
         ))}
         <td/>
         <td>
-          <Input type="number" onChange={this.handlePopulationChange(row)} value={this.state.population[row]} />
+          <Input type="number" min="0" step="0.1" max="100" onChange={this.handlePopulationChange(row)} value={this.state.population[row]} />
         </td>
       </tr>
     );
@@ -125,7 +125,7 @@ export default class Setup extends React.Component {
         </Row>
         <Row>
           <Col sm="3">
-            <Input type="number" value={this.state.generations} onChange={this.handleGenerationChange} />
+            <Input type="number" min="1" value={this.state.generations} onChange={this.handleGenerationChange} />
           </Col>
             <Col sm="4">
               <Button color="primary" onClick={this.handleComputeClick}>Vypočítat</Button>

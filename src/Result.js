@@ -1,6 +1,8 @@
 import React from 'react';
+import { Col } from 'reactstrap'
 import PropTypes from 'prop-types';
-import { Table } from 'reactstrap';
+import ResultTable from "./ResultTable";
+import ResultGraph from "./ResultGraph";
 
 export default class Result extends React.Component {
   static propTypes = {
@@ -27,15 +29,18 @@ export default class Result extends React.Component {
     const result = {
       chrome: {
         name: 'Chrome',
-        population: []
+        population: [],
+        color: '#0066ff'
       },
       firefox: {
         name: 'Firefox',
-        population: []
+        population: [],
+        color: '#ff6600',
       },
       edge: {
         name: 'IE/Edge',
-        population: []
+        population: [],
+        color: '#00cc00',
       },
     };
     populations.forEach(population => {
@@ -50,25 +55,12 @@ export default class Result extends React.Component {
     const populationCount = this.props.populations.length;
     const byBrowser = this.populationsByBrowser;
     return (
-        <Table>
-          <thead>
-          <tr>
-              <th>Prohlížeč</th>
-              <th>Počáteční populace</th>
-              {[...Array(populationCount - 1)].map((_, i) => <th>{i + 1}. měsíc</th>)}
-          </tr>
-          </thead>
-          <tbody>
-            {Object.values(byBrowser).map(browser => {
-              return (
-                <tr>
-                  <th scope="row">{browser.name}</th>
-                  {browser.population.map(value => <td>{value.toFixed(2)} %</td>)}
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+      <>
+        <ResultTable count={populationCount} populations={byBrowser} />
+        <Col sm={{ size: 8, offset: 2 }}>
+          <ResultGraph count={populationCount} browsers={byBrowser} />
+        </Col>
+      </>
     );
   }
 }
