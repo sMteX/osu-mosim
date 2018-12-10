@@ -116,6 +116,7 @@ export default class Result extends React.Component {
             filename="data.csv"
             headers={csv.headers}
             data={csv.data}
+            className="btn csvLink"
             style={{
               'margin-left': 10,
               'margin-bottom': 20

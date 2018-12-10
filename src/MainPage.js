@@ -78,8 +78,8 @@ class MainPage extends React.Component {
     return (
       <>
         <Col
-          sm={{ size: 4, offset: 4 }}
-          style={{ 'margin-top': 10 }}>
+          sm={{ size: 6, offset: 3 }}
+          style={{ 'text-align': 'center', 'margin-top': 10 }}>
           <h1>MOSIM projekt</h1>
         </Col>
         <p>

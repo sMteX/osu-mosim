@@ -24,3 +24,15 @@ code {
 .resultTable thead th {
   min-width: 100px;
 }
+
+.csvLink {
+  color: #ffffff;
+  background-color: #42abff;
+  border-color: #42abff;
+}
+
+.csvLink:hover {
+  color: #ffffff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
