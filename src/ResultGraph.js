@@ -36,8 +36,8 @@ export default class ResultGraph extends React.Component {
         <HorizontalGridLines />
         {Object.values(realData).map(browser => (
           <LineSeries
-          data={this.mapToXY(browser.population)}
-          color={browser.color} />
+            data={this.mapToXY(browser.population)}
+            color={browser.color} />
         ))}
         {Object.values(browsers).map(browser => (
           <LineSeries

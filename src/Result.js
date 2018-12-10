@@ -21,10 +21,10 @@ export default class Result extends React.Component {
 
   constructor(options) {
     super(options);
-    this.cropRealPopulation = this.cropRealPopulation.bind(this);
+    this.cropRealBrowsers = this.cropRealBrowsers.bind(this);
   }
 
-  realPopulations = {
+  realBrowsers = {
     chrome: {
       name: 'Chrome',
       population: [70.6, 71, 71.9, 72.5, 73.4, 73.6, 73.8, 74.2, 74.5, 75, 75.8, 75.7, 75.7, 76.1, 77.1, 77.7, 77.8, 78.3, 78.7, 78.9, 78.6, 78.6, 78.9, 79.2, 79.3, 79.9, 80.2, 80.7, 81, 81.3, 81.9, 81.8, 81.6, 81.6],
@@ -48,7 +48,7 @@ export default class Result extends React.Component {
     return populations.map(population => population.map(item => item[0]));
   }
 
-  get populationsByBrowser() {
+  get groupByBrowser() {
     const populations = this.flattenPopulations; // jsou groupnute podle poctu populaci (a kazda populace ma 3 prvky)
     const result = {
       chrome: {
@@ -75,8 +75,8 @@ export default class Result extends React.Component {
     return result;
   }
 
-  cropRealPopulation(count) {
-    return Object.entries(this.realPopulations).reduce((obj, [key, browser]) => {
+  cropRealBrowsers(count) {
+    return Object.entries(this.realBrowsers).reduce((obj, [key, browser]) => {
       obj[key] = {
         name: browser.name,
         color: browser.color,
@@ -88,8 +88,8 @@ export default class Result extends React.Component {
 
   get csvData() {
     const count = this.props.populations.length;
-    const real = this.cropRealPopulation(count);
-    const simulated = this.populationsByBrowser;
+    const real = this.cropRealBrowsers(count);
+    const simulated = this.groupByBrowser;
     const ret = {
       headers: ['Prohlížeč', ...[...Array(count)].map((_, i) => `${i + 1}. měsíc`)],
       data: [
@@ -97,26 +97,38 @@ export default class Result extends React.Component {
         ...Object.values(simulated).map(browser => [`${browser.name} - simulovaný`, ...browser.population]),
       ]
     };
-    console.log('csvData(), ret', ret);
     return ret;
   }
 
   render() {
     const populationCount = this.props.populations.length;
-    const byBrowser = this.populationsByBrowser;
-    const croppedReal = this.cropRealPopulation(populationCount);
+    const byBrowser = this.groupByBrowser;
+    const croppedReal = this.cropRealBrowsers(populationCount);
     const csv = this.csvData;
     return (
       <>
         <Row style={{ 'margin-top': 20 }}>
           <h4>Výsledek - simulované využití prohlížečů</h4>
-          <ResultTable count={populationCount} populations={byBrowser} />
-          <CSVLink filename="data.csv" headers={csv.headers} data={csv.data} style={{ 'margin-left': 10, 'margin-bottom': 20 }}>Export do CSV</CSVLink>
+          <ResultTable
+            count={populationCount}
+            browsers={byBrowser} />
+          <CSVLink
+            filename="data.csv"
+            headers={csv.headers}
+            data={csv.data}
+            style={{
+              'margin-left': 10,
+              'margin-bottom': 20
+            }}>
+            Export do CSV
+          </CSVLink>
         </Row>
         <Row>
           <h4>Graf - reálná data vs simulovaná</h4>
           <Col sm={{ size: 8, offset: 2 }}>
-            <ResultGraph realData={croppedReal} browsers={byBrowser} />
+            <ResultGraph
+              realData={croppedReal}
+              browsers={byBrowser} />
           </Col>
         </Row>
       </>

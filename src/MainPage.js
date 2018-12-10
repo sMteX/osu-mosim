@@ -40,7 +40,7 @@ class MainPage extends React.Component {
     }
     this.setState((state) => ({
       ...state,
-      populations: result,
+      browsers: result,
       showResult: true,
     }));
   }
@@ -77,7 +77,9 @@ class MainPage extends React.Component {
   render() {
     return (
       <>
-        <Col sm={{ size: 4, offset: 4 }} style={{ 'margin-top': 10 }}>
+        <Col
+          sm={{ size: 4, offset: 4 }}
+          style={{ 'margin-top': 10 }}>
           <h1>MOSIM projekt</h1>
         </Col>
         <p>
@@ -91,8 +93,10 @@ class MainPage extends React.Component {
             <li>K simulaci využíváme Leslieho populační matici. Tato matice má předem vyplněné hodnoty, které jsme experimentálně zjistili. Pro zobrazení nebo změnu hodnot matice nebo počáteční populace klikněte zde: <Button color="link" onClick={this.toggleSetup} style={{ padding: 0 }}>{this.state.showSetup ? 'Skrýt nastavení' : 'Zobrazit nastavení'}</Button></li>
           </ul>
         </p>
-        <Setup showSetup={this.state.showSetup} compute={this.setValuesAndCompute} />
-        {this.state.showResult && <Result populations={this.state.populations} />}
+        <Setup
+          showSetup={this.state.showSetup}
+          compute={this.setValuesAndCompute} />
+        {this.state.showResult && <Result populations={this.state.browsers} />}
       </>
     );
   }
