@@ -94,18 +94,18 @@ export default class Setup extends React.Component {
     return (
       <>
         <Row>
-          <h3>Populační matice (Leslieho)</h3>
+          <h4>Populační matice (Leslieho)</h4>
         </Row>
         <Row>
           <Table>
             <thead>
             <tr>
-              <th>#</th>
+              <th>Prohlížeč</th>
               <th>Chrome</th>
               <th>Firefox</th>
               <th>IE/Edge</th>
               <th/>
-              <th>Počáteční populace</th>
+              <th>Počáteční populace [%]</th>
             </tr>
             </thead>
             <tbody>
@@ -120,11 +120,11 @@ export default class Setup extends React.Component {
     return (
       <>
         {this.props.showSetup && this.matrix}
-        <Row>
-          <h3>Počet generací (měsíců)</h3>
+        <Row style={{ 'margin-bottom': 5 }}>
+          <h4>Počet generací (měsíců)</h4>
         </Row>
         <Row>
-          <Col sm="3">
+          <Col sm="2">
             <Input type="number" min="1" value={this.state.generations} onChange={this.handleGenerationChange} />
           </Col>
             <Col sm="4">

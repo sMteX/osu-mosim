@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import {Button, Col} from 'reactstrap';
 import Setup from './Setup';
 import Result from "./Result";
 
@@ -46,7 +46,12 @@ class MainPage extends React.Component {
   }
 
   multiplyMatrices(A, B) {
-    // TODO: size check?
+    if (A.length === 0 || B.length === 0) {
+      throw new Error('Matrices cannot be empty');
+    }
+    if (A[0].length !== B.length) {
+      throw new Error('Matrices must have the same size');
+    }
     const newMatrix = [];
     for (let row = 0; row < A.length; row++) {
       const r = [];
@@ -72,15 +77,20 @@ class MainPage extends React.Component {
   render() {
     return (
       <>
-        <h1>MOSIM projekt</h1>
-        <p><strong>Téma:</strong> Průběh využití prohlížečů v čase<br />
-          Tento projekt se snaží modelovat vývoj procentuálního využití 3 hlavních prohlížečů v čase, přičemž vycházíme z <a href="https://www.w3schools.com/browsers/default.asp">následujících dat</a> (leden 2016 - říjen 2018). Nesrovnalosti s reálnými daty lze vysvětlit podle nás takto:
-        <ul>
-          <li>realita je otevřený systém, může přibývat uživatelů zvenčí, aniž by přecházeli od jiných prohlížečů, stejně tak mohou odcházet ze systému pryč,</li>
-          <li>mohou se vyskytnout náhlé události, které ovlivní rozložení uživatelů, např. ve Firefoxu se vyskytne chyba v zabezpečení, uniknou uživatelská data, tak část lidí hromadně migruje k Chromu, tyto události nelze s tímto modelem zachytit a modelovat.</li>
-        </ul>
-        K simulaci využíváme Leslieho populační matici. Tato matice má předem vyplněné hodnoty, které jsme experimentálně zjistili. Pro zobrazení nebo změnu hodnot matice nebo počáteční populace klikněte zde: <Button color="primary" onClick={this.toggleSetup}>{this.state.showSetup ? 'Skrýt nastavení' : 'Zobrazit nastavení'}</Button></p>
-        <br />
+        <Col sm={{ size: 4, offset: 4 }} style={{ 'margin-top': 10 }}>
+          <h1>MOSIM projekt</h1>
+        </Col>
+        <p>
+          <strong>Téma:</strong> Průběh využití prohlížečů v čase<br />
+          <strong>Autoři:</strong> Pavla Grossmannová, Lukáš Stuchlík<br />
+          <br />
+          <ul>
+            <li>Tento projekt se snaží modelovat vývoj procentuálního využití 3 hlavních prohlížečů v čase, přičemž vycházíme z <a href="https://www.w3schools.com/browsers/default.asp">následujících dat</a> (leden 2016 - říjen 2018).</li>
+            <li>Nesrovnalosti s reálnými daty lze vysvětlit podle nás tím, že mohou se vyskytnout náhlé události, které ovlivní rozložení uživatelů, např. ve Firefoxu se vyskytne chyba v zabezpečení, uniknou uživatelská data, tak část lidí hromadně migruje k Chromu, tyto události nelze s tímto modelem zachytit a modelovat. </li>
+            <li>Simulace by mohla být o něco přesnější, kdyby se populační matice mohla měnit v čase, což stejně ovšem neřeší odhady dat do budoucna.</li>
+            <li>K simulaci využíváme Leslieho populační matici. Tato matice má předem vyplněné hodnoty, které jsme experimentálně zjistili. Pro zobrazení nebo změnu hodnot matice nebo počáteční populace klikněte zde: <Button color="link" onClick={this.toggleSetup} style={{ padding: 0 }}>{this.state.showSetup ? 'Skrýt nastavení' : 'Zobrazit nastavení'}</Button></li>
+          </ul>
+        </p>
         <Setup showSetup={this.state.showSetup} compute={this.setValuesAndCompute} />
         {this.state.showResult && <Result populations={this.state.populations} />}
       </>

@@ -14,7 +14,7 @@ export default class ResultTable extends React.Component {
   render() {
     const { count, populations } = this.props;
     return (
-      <Table responsive>
+      <Table responsive className="resultTable">
         <thead>
         <tr>
           <th>Prohlížeč</th>

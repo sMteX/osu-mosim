@@ -26,14 +26,14 @@ export default class ResultGraph extends React.Component {
       <FlexibleWidthXYPlot
         height={400}
         yDomain={[0, 100]}>
-        <YAxis/>
-        <HorizontalGridLines />
         <DiscreteColorLegend
           items={[
             ...this.getLegend(realData),
             ...this.getLegend(browsers, true)
           ]}
           orientation="horizontal" />
+        <YAxis/>
+        <HorizontalGridLines />
         {Object.values(realData).map(browser => (
           <LineSeries
           data={this.mapToXY(browser.population)}

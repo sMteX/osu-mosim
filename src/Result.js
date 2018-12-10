@@ -108,16 +108,16 @@ export default class Result extends React.Component {
     const csv = this.csvData;
     return (
       <>
-        <Row>
+        <Row style={{ 'margin-top': 20 }}>
+          <h4>Výsledek - simulované využití prohlížečů</h4>
           <ResultTable count={populationCount} populations={byBrowser} />
+          <CSVLink filename="data.csv" headers={csv.headers} data={csv.data} style={{ 'margin-left': 10, 'margin-bottom': 20 }}>Export do CSV</CSVLink>
         </Row>
         <Row>
+          <h4>Graf - reálná data vs simulovaná</h4>
           <Col sm={{ size: 8, offset: 2 }}>
             <ResultGraph realData={croppedReal} browsers={byBrowser} />
           </Col>
-        </Row>
-        <Row>
-          <CSVLink filename="data.csv" headers={csv.headers} data={csv.data}>Export do CSV</CSVLink>
         </Row>
       </>
     );
