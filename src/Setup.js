@@ -17,7 +17,7 @@ export default class Setup extends React.Component {
         [0.03, 0.75, 0.3],
         [0.02, 0.02, 0.6],
       ],
-      population: [70.6, 21, 8.4],
+      population: [73.2334, 20.1285, 6.6381],
       generations: 5,
     };
     this.handleMatrixChange = this.handleMatrixChange.bind(this);
@@ -92,10 +92,10 @@ export default class Setup extends React.Component {
           <Input
             type="number"
             min="0"
-            step="0.1"
+            step="0.01"
             max="100"
             onChange={this.handlePopulationChange(row)}
-            value={this.state.population[row]} />
+            value={this.state.population[row].toFixed(2)} />
         </td>
       </tr>
     );
